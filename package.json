@@ -1,23 +1,20 @@
 {
   "name": "use-key-capture",
-  "version": "0.0.1-beta.0",
-  "main": "dist/useKeyCapture.js",
+  "version": "0.0.1-beta.1",
+  "main": "dist",
   "license": "MIT",
   "scripts": {
-    "webpack": "rimraf dist && webpack"
+    "build": "rimraf dist && babel src --out-dir dist"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
-    "babel-loader": "^8.0.6",
-    "rimraf": "^3.0.0",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "rimraf": "^3.0.0"
   },
-  "dependencies": {
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+  "peerDependencies": {
+    "react": "^16.12.0"
   },
   "browserslist": "> 0.25%, not dead",
   "author": "Pranesh T G",
