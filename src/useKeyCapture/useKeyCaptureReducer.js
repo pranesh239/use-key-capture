@@ -36,6 +36,21 @@ export default function keyReducer(state, action) {
         isNumber: true
       };
     }
+
+    case useKeyActionTypes.SPACE: {
+      return {
+        ...useKeyInitialState,
+        isSpace: true
+      };
+    }
+
+    case useKeyActionTypes.ARROWS: {
+      return {
+        ...useKeyInitialState,
+        isArrows: true,
+        ...action.payload
+      };
+    }
     default:
       return { ...useKeyInitialState };
   }

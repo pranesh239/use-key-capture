@@ -6,6 +6,7 @@ export const useKeyInitialState = {
   isEscape: false,
   isEnter: false,
   isSpace: false,
+  isArrows: false,
   isRightArrow: false,
   isLeftArrow: false,
   isUpArrow: false,
@@ -25,37 +26,70 @@ export const useKeyActionTypes = {
   RESET_CAPTURES: 'RESET_CAPTURES',
   CAPS_ALPHABET: 'CAPS',
   SMALL_ALPHABET: 'SMALL',
-  NUMBER: 'NUMBER'
+  NUMBER: 'NUMBER',
+  SPACE: 'SPACE',
+  ARROWS: 'ARROWS'
+};
+
+const arrowKeysMapper = {
+  24: 'UpArrow',
+  25: 'DownArrow',
+  26: 'RightArrow',
+  27: 'LeftArrow'
 };
 
 const keyCodeMapper = {
   13: useKeyActionTypes.ENTER_KEY,
-  27: useKeyActionTypes.ESCAPE_KEY
+  27: useKeyActionTypes.ESCAPE_KEY,
+  32: useKeyActionTypes.Error
+};
+
+const getArrowKeysPayload = keyCode => {
+  return {
+    [`is${arrowKeysMapper[keyCode]}`]: true
+  };
 };
 
 const isCapitalLetterPressed = key => /^[A-Z]$/.test(key);
 const isSmallLetterPressed = key => /^[a-z]$/.test(key);
 
-export const getActionType = eventDetails => {
+/**
+ * Returns the action type for the key pressed
+ * @param {KeyboardEvent} eventDetails keyboard event object
+ * @return {String}  action type
+ */
+export const getAction = eventDetails => {
   if (!eventDetails) {
     throw new Error('Event called with no details');
   }
 
+  if (keyCodeMapper[eventDetails.keyCode]) {
+    return { type: useKeyActionTypes.SPACE };
+  }
+
   if (keyCodeMapper[eventDetails.keyCode])
-    return keyCodeMapper[eventDetails.keyCode];
+    return { type: keyCodeMapper[eventDetails.keyCode] };
 
   if (isCapitalLetterPressed(eventDetails.key)) {
-    return useKeyActionTypes.CAPS_ALPHABET;
+    return { type: useKeyActionTypes.CAPS_ALPHABET };
   }
 
   if (isSmallLetterPressed(eventDetails.key)) {
-    return useKeyActionTypes.SMALL_ALPHABET;
+    return { type: useKeyActionTypes.SMALL_ALPHABET };
   }
 
   if (eventDetails.keyCode >= 48 && eventDetails.keyCode <= 57) {
-    return useKeyActionTypes.NUMBER;
+    return { type: useKeyActionTypes.NUMBER };
   }
-  return 'SOME_OTHER_KEY';
+
+  if (eventDetails.keyCode >= 24 && eventDetails.keyCode <= 27) {
+    return {
+      type: useKeyActionTypes.ARROWS,
+      payload: getArrowKeysPayload(eventDetails.keyCode)
+    };
+  }
+
+  return { type: 'SOME_OTHER_KEY' };
 };
 
 export const useEnhancedReducer = reducer =>
@@ -65,3 +99,8 @@ export const useEnhancedReducer = reducer =>
     },
     [reducer]
   );
+
+// {
+//   payload: event,
+//   type: getActionType(event)
+// }
