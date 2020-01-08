@@ -3,7 +3,7 @@ import reducer from './useKeyCaptureReducer';
 
 import {
   useKeyInitialState,
-  getActionType,
+  getAction,
   useKeyActionTypes,
   useEnhancedReducer
 } from './useKeyCaptureUtils';
@@ -15,10 +15,7 @@ function useKeys() {
   );
 
   const dispatchWithActionDetails = event => {
-    dispatch({
-      payload: event,
-      type: getActionType(event)
-    });
+    dispatch(getAction(event));
   };
 
   /**
@@ -31,7 +28,7 @@ function useKeys() {
   };
 
   useEffect(() => {
-    // example for IS_TRUSTED
+    // example for IS_TRUSTED as false
     // setTimeout(() => {
     //   document.dispatchEvent(new KeyboardEvent('keydown'), { key: 'Escape' });
     // }, 2000);
