@@ -1,57 +1,63 @@
-import { useKeyInitialState, useKeyActionTypes } from './useKeyCaptureUtils';
+import { initialState, useKeyActionTypes } from './useKeyCaptureUtils';
 
 export default function keyReducer(state, action) {
   switch (action.type) {
     case useKeyActionTypes.ESCAPE_KEY: {
       return {
-        ...useKeyInitialState,
-        isEscape: true
+        ...initialState,
+        isEscape: true,
+        ...action.payload
       };
     }
 
     case useKeyActionTypes.ENTER_KEY: {
       return {
-        ...useKeyInitialState,
-        isEnter: true
+        ...initialState,
+        isEnter: true,
+        ...action.payload
       };
     }
 
     case useKeyActionTypes.CAPS_ALPHABET: {
       return {
-        ...useKeyInitialState,
-        isCaps: true
+        ...initialState,
+        isCaps: true,
+        ...action.payload
       };
     }
 
     case useKeyActionTypes.SMALL_ALPHABET: {
       return {
-        ...useKeyInitialState,
-        isSmall: true
+        ...initialState,
+        isSmall: true,
+        ...action.payload
       };
     }
 
     case useKeyActionTypes.NUMBER: {
       return {
-        ...useKeyInitialState,
-        isNumber: true
+        ...initialState,
+        isNumber: true,
+        ...action.payload
       };
     }
 
     case useKeyActionTypes.SPACE: {
       return {
-        ...useKeyInitialState,
-        isSpace: true
+        ...initialState,
+        isSpace: true,
+        ...action.payload
       };
     }
 
     case useKeyActionTypes.ARROWS: {
       return {
-        ...useKeyInitialState,
-        isArrows: true,
+        ...initialState,
+        isArrow: true,
         ...action.payload
       };
     }
     default:
-      return { ...useKeyInitialState };
+      return { ...initialState };
   }
 }
