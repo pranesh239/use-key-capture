@@ -29,6 +29,7 @@ export const initialState = {
   isCaps: false,
   isSmall: false,
 
+  // For special character
   isSpecialCharacter: false
 };
 
@@ -40,7 +41,8 @@ export const useKeyActionTypes = {
   SMALL_ALPHABET: 'SMALL',
   NUMBER: 'NUMBER',
   SPACE: 'SPACE',
-  ARROWS: 'ARROWS'
+  ARROWS: 'ARROWS',
+  SPECIAL: 'SPECIAL'
 };
 
 const modifierKeys = {
@@ -64,6 +66,15 @@ const getArrowKeysPayload = key => {
 
 const isCapitalLetterPressed = key => /^[A-Z]$/.test(key);
 const isSmallLetterPressed = key => /^[a-z]$/.test(key);
+const isNumberPressed = key => /^[0-9]/.test(key);
+
+const isSpecialCharacterPressed = key => {
+  return (
+    !isCapitalLetterPressed(key) &&
+    !isSmallLetterPressed(key) &&
+    !isNumberPressed(key)
+  );
+};
 
 const getModifierPayload = eventDetails => {
   let modifierPayloadObj = {};
@@ -112,9 +123,14 @@ export const getAction = eventDetails => {
     type = useKeyActionTypes.SMALL_ALPHABET;
   }
 
-  if (eventDetails.keyCode >= 48 && eventDetails.keyCode <= 57) {
+  if (isNumberPressed(eventDetails.key)) {
     type = useKeyActionTypes.NUMBER;
   }
+
+  if (isSpecialCharacterPressed(eventDetails.key)) {
+    type = useKeyActionTypes.SPECIAL;
+  }
+
   if (!type) {
     type = 'SOME_OTHER_KEY';
   }

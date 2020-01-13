@@ -50,6 +50,14 @@ export default function keyReducer(state, action) {
       };
     }
 
+    case useKeyActionTypes.SPECIAL: {
+      return {
+        ...initialState,
+        isSpecialCharacter: true,
+        ...action.payload
+      };
+    }
+
     case useKeyActionTypes.ARROWS: {
       return {
         ...initialState,
