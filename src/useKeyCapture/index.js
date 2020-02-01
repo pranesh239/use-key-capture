@@ -1,18 +1,24 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import reducer from './useKeyCaptureReducer';
 
 import {
-  useKeyInitialState,
+  initialState,
   getAction,
   useKeyActionTypes,
-  useEnhancedReducer
+  useEnhancedReducer,
+  targetItemPropsDefaultValue,
+  handleRefAssignment
 } from './useKeyCaptureUtils';
 
 function useKeys() {
   const [keyData, dispatch] = useReducer(
     useEnhancedReducer(reducer),
-    useKeyInitialState
+    initialState
   );
+
+  const targetItemRef = useRef(null);
+
+  console.log('targetItemRef', targetItemRef);
 
   const dispatchWithActionDetails = event => {
     dispatch(getAction(event));
@@ -35,14 +41,24 @@ function useKeys() {
   }, [keyData]);
 
   useEffect(() => {
-    document.addEventListener('keydown', dispatchWithActionDetails);
+    const listenerItem = targetItemRef.current || document;
+    listenerItem.addEventListener('keydown', dispatchWithActionDetails);
 
     return () => {
-      document.removeEventListener('keydown', dispatchWithActionDetails);
+      listenerItem.removeEventListener('keydown', dispatchWithActionDetails);
     };
   }, []);
 
-  return { keyData, resetKeyDetails };
+  const targetPropsGetter = ({ ref, type } = {}) => {
+    return {
+      type: type || targetItemPropsDefaultValue.type,
+      ref: handleRefAssignment(ref, targetItemNode => {
+        targetItemRef.current = targetItemNode;
+      })
+    };
+  };
+
+  return { keyData, resetKeyDetails, targetPropsGetter };
 }
 
 export default useKeys;

@@ -18,6 +18,22 @@ export default function keyReducer(state, action) {
       };
     }
 
+    case useKeyActionTypes.CAPSLOCK: {
+      return {
+        ...initialState,
+        isCapsLock: true,
+        ...action.payload
+      };
+    }
+
+    case useKeyActionTypes.SHIFT: {
+      return {
+        ...initialState,
+        isShift: true,
+        ...action.payload
+      };
+    }
+
     case useKeyActionTypes.CAPS_ALPHABET: {
       return {
         ...initialState,
@@ -46,6 +62,14 @@ export default function keyReducer(state, action) {
       return {
         ...initialState,
         isSpace: true,
+        ...action.payload
+      };
+    }
+
+    case useKeyActionTypes.TAB: {
+      return {
+        ...initialState,
+        isTab: true,
         ...action.payload
       };
     }

@@ -1,12 +1,17 @@
 import { useCallback } from 'react';
 
-export const initialState = {
+const initialState = {
   // Pressed key
   key: null,
 
   isEscape: false,
   isEnter: false,
+  isCapsLock: false,
+  isTab: false,
   isSpace: false,
+
+  // Function keys
+  isFunctionKey: false,
 
   // Arrow keys
   isArrow: false,
@@ -15,25 +20,22 @@ export const initialState = {
   isArrowUp: false,
   isArrowDown: false,
 
-  isTab: false,
-
   // Modifier keys
   isWithShift: false,
   isWithCtrl: false,
   isWithMeta: false,
   isWithAlt: false,
 
-  isNumber: false,
-
   // Character varients
   isCaps: false,
   isSmall: false,
+  isNumber: false,
 
   // For special character
   isSpecialCharacter: false
 };
 
-export const useKeyActionTypes = {
+const useKeyActionTypes = {
   ENTER_KEY: 'ENTER_KEY',
   ESCAPE_KEY: 'ESCAPE_KEY',
   RESET_CAPTURES: 'RESET_CAPTURES',
@@ -42,7 +44,10 @@ export const useKeyActionTypes = {
   NUMBER: 'NUMBER',
   SPACE: 'SPACE',
   ARROWS: 'ARROWS',
-  SPECIAL: 'SPECIAL'
+  SPECIAL: 'SPECIAL',
+  TAB: 'TAB',
+  CAPSLOCK: 'CAPSLOCK',
+  SHIFT: 'SHIFT'
 };
 
 const modifierKeys = {
@@ -53,9 +58,13 @@ const modifierKeys = {
 };
 
 const keyCodeMapper = {
-  13: useKeyActionTypes.ENTER_KEY,
-  27: useKeyActionTypes.ESCAPE_KEY,
-  32: useKeyActionTypes.SPACE
+  Enter: useKeyActionTypes.ENTER_KEY,
+  Escape: useKeyActionTypes.ESCAPE_KEY,
+  Tab: useKeyActionTypes.TAB,
+  CapsLock: useKeyActionTypes.CAPSLOCK,
+  Shift: useKeyActionTypes.SHIFT,
+  // eslint-disable-next-line no-useless-computed-key
+  [' ']: useKeyActionTypes.SPACE
 };
 
 const getArrowKeysPayload = key => {
@@ -72,7 +81,8 @@ const isSpecialCharacterPressed = key => {
   return (
     !isCapitalLetterPressed(key) &&
     !isSmallLetterPressed(key) &&
-    !isNumberPressed(key)
+    !isNumberPressed(key) &&
+    !keyCodeMapper[key]
   );
 };
 
@@ -94,7 +104,7 @@ const getModifierPayload = eventDetails => {
  * @param {KeyboardEvent} eventDetails keyboard event object
  * @return {String}  action type
  */
-export const getAction = eventDetails => {
+const getAction = eventDetails => {
   if (!eventDetails) {
     throw new Error('Event called with no details');
   }
@@ -112,8 +122,7 @@ export const getAction = eventDetails => {
 
   let type;
 
-  if (keyCodeMapper[eventDetails.keyCode])
-    type = keyCodeMapper[eventDetails.keyCode];
+  if (keyCodeMapper[eventDetails.key]) type = keyCodeMapper[eventDetails.key];
 
   if (isCapitalLetterPressed(eventDetails.key)) {
     type = useKeyActionTypes.CAPS_ALPHABET;
@@ -127,7 +136,7 @@ export const getAction = eventDetails => {
     type = useKeyActionTypes.NUMBER;
   }
 
-  if (isSpecialCharacterPressed(eventDetails.key)) {
+  if (!type && isSpecialCharacterPressed(eventDetails.key)) {
     type = useKeyActionTypes.SPECIAL;
   }
 
@@ -141,10 +150,35 @@ export const getAction = eventDetails => {
   };
 };
 
-export const useEnhancedReducer = reducer =>
+const targetItemPropsDefaultValue = {
+  type: 'text'
+};
+
+function handleRefAssignment(...refs) {
+  return node => {
+    refs.forEach(ref => {
+      if (typeof ref === 'function') {
+        ref(node);
+      } else if (ref) {
+        ref.current = node;
+      }
+    });
+  };
+}
+
+const useEnhancedReducer = reducer =>
   useCallback(
     (state, action) => {
       return reducer(state, action);
     },
     [reducer]
   );
+
+export {
+  getAction,
+  initialState,
+  targetItemPropsDefaultValue,
+  useKeyActionTypes,
+  useEnhancedReducer,
+  handleRefAssignment
+};

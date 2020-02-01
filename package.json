@@ -1,18 +1,22 @@
 {
   "name": "use-key-capture",
-  "version": "0.0.1-beta.6",
+  "version": "0.0.1-beta.10",
   "main": "dist",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist && babel src --out-dir dist",
+    "build": "rimraf dist && babel src --ignore */__tests__ --out-dir dist",
     "prepare": "yarn build",
-    "postpublish": "git push --tags"
+    "postpublish": "git push --tags",
+    "test": "jest --config=jest.config.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
+    "@testing-library/jest-dom": "^5.0.0",
+    "@testing-library/react": "^9.4.0",
+    "jest": "^24.9.0",
     "rimraf": "^3.0.0"
   },
   "peerDependencies": {
@@ -23,5 +27,9 @@
   "homepage": "https://github.com/pranesh239/use-key-capture#readme",
   "bugs": {
     "url": "https://github.com/pranesh239/use-key-capture/issues"
+  },
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   }
 }
