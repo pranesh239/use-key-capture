@@ -14,7 +14,7 @@
     "docz:build": "docz build",
     "docz:serve": "docz build && docz serve",
     "predeploy": "yarn test && yarn docz:build",
-    "deploy": "gh-pages -d .docz/dist/"
+    "deploy": "gh-pages -d .docz/dist"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
