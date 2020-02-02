@@ -4,8 +4,12 @@ const initialState = {
   // Pressed key
   key: null,
 
-  isEscape: false,
+  // Command Keys
   isEnter: false,
+
+  isBackspace: false,
+
+  isEscape: false,
   isCapsLock: false,
   isTab: false,
   isSpace: false,
@@ -47,7 +51,8 @@ const useKeyActionTypes = {
   SPECIAL: 'SPECIAL',
   TAB: 'TAB',
   CAPSLOCK: 'CAPSLOCK',
-  SHIFT: 'SHIFT'
+  SHIFT: 'SHIFT',
+  BACKSPACE: 'BACKSPACE'
 };
 
 const modifierKeys = {
@@ -63,6 +68,7 @@ const keyCodeMapper = {
   Tab: useKeyActionTypes.TAB,
   CapsLock: useKeyActionTypes.CAPSLOCK,
   Shift: useKeyActionTypes.SHIFT,
+  Backspace: useKeyActionTypes.BACKSPACE,
   // eslint-disable-next-line no-useless-computed-key
   [' ']: useKeyActionTypes.SPACE
 };
@@ -76,13 +82,16 @@ const getArrowKeysPayload = key => {
 const isCapitalLetterPressed = key => /^[A-Z]$/.test(key);
 const isSmallLetterPressed = key => /^[a-z]$/.test(key);
 const isNumberPressed = key => /^[0-9]/.test(key);
+const isSpecialCharacter = key =>
+  /^[!@#$%^&*()_+<>?:"{}[\]';.,\|/\-\\=_\+~`]/.test(key);
 
 const isSpecialCharacterPressed = key => {
   return (
     !isCapitalLetterPressed(key) &&
     !isSmallLetterPressed(key) &&
     !isNumberPressed(key) &&
-    !keyCodeMapper[key]
+    !keyCodeMapper[key] &&
+    isSpecialCharacter(key)
   );
 };
 
@@ -109,34 +118,36 @@ const getAction = eventDetails => {
     throw new Error('Event called with no details');
   }
 
-  if (eventDetails.key.includes('Arrow')) {
+  const { key } = eventDetails;
+
+  if (key.includes('Arrow')) {
     return {
       type: useKeyActionTypes.ARROWS,
       payload: {
-        ...getArrowKeysPayload(eventDetails.key),
+        ...getArrowKeysPayload(key),
         ...getModifierPayload(eventDetails),
-        key: eventDetails.key
+        key
       }
     };
   }
 
   let type;
 
-  if (keyCodeMapper[eventDetails.key]) type = keyCodeMapper[eventDetails.key];
+  if (keyCodeMapper[key]) type = keyCodeMapper[key];
 
-  if (isCapitalLetterPressed(eventDetails.key)) {
+  if (isCapitalLetterPressed(key)) {
     type = useKeyActionTypes.CAPS_ALPHABET;
   }
 
-  if (isSmallLetterPressed(eventDetails.key)) {
+  if (isSmallLetterPressed(key)) {
     type = useKeyActionTypes.SMALL_ALPHABET;
   }
 
-  if (isNumberPressed(eventDetails.key)) {
+  if (isNumberPressed(key)) {
     type = useKeyActionTypes.NUMBER;
   }
 
-  if (!type && isSpecialCharacterPressed(eventDetails.key)) {
+  if (!type && isSpecialCharacterPressed(key)) {
     type = useKeyActionTypes.SPECIAL;
   }
 
@@ -146,7 +157,7 @@ const getAction = eventDetails => {
 
   return {
     type,
-    payload: { ...getModifierPayload(eventDetails), key: eventDetails.key }
+    payload: { ...getModifierPayload(eventDetails), key }
   };
 };
 
