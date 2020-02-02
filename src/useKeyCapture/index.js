@@ -47,7 +47,7 @@ function useKeys() {
     };
   }, []);
 
-  const targetPropsGetter = ({ ref, type } = {}) => {
+  const getTargetProps = ({ ref, type } = {}) => {
     return {
       type: type || targetItemPropsDefaultValue.type,
       ref: handleRefAssignment(ref, targetItemNode => {
@@ -56,7 +56,7 @@ function useKeys() {
     };
   };
 
-  return { keyData, resetKeyData, targetPropsGetter };
+  return { keyData, resetKeyData, getTargetProps };
 }
 
 export default useKeys;

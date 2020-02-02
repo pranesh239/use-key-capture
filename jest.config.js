@@ -4,7 +4,10 @@ const ignores = [
   '/fixtures/',
   '/__tests__/helpers/',
   '/__tests__/utils/',
-  '__mocks__'
+  '__mocks__',
+  'docz',
+  '.docz',
+  'dist'
 ];
 
 module.exports = {

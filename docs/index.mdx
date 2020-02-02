@@ -1,0 +1,44 @@
+---
+name: Docs
+route: /
+order: 1
+---
+
+# use-key-capture
+
+use-key-capture is a custom hook which will let us not to worry about the key-press event. Just plugin in use-key-capture hook to the **target** we want to listen for key press event or by default it can listen for key-press event **globally**.
+
+## Installation
+
+**npm**
+
+```bash
+npm i use-key-capture
+```
+
+**yarn**
+
+```bash
+yarn add use-key-capture
+```
+
+## How it is used
+
+```jsx
+import useKey from 'use-key-capture';
+...
+const { keyData, resetKeyData, getTargetProps } = useKey();
+```
+
+## Properties
+
+| Property name | Description                    |
+| ------------- | ------------------------------ |
+| keyData       | gives pressed key details      |
+| resetKeyData  | resets the pressed key details |
+
+## Target Prop getter
+
+| Property name  | Description                                |
+| -------------- | ------------------------------------------ |
+| getTargetProps | gives the required props to target element |

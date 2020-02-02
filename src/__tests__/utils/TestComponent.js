@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import useKey from '../../useKeyCapture';
 
 const TestComponent = () => {
-  const { keyData, targetPropsGetter } = useKey();
+  const { keyData, getTargetProps } = useKey();
 
   const inputRef = useRef(null);
 
@@ -14,7 +14,7 @@ const TestComponent = () => {
     <div>
       <input
         data-testid="input"
-        {...targetPropsGetter({
+        {...getTargetProps({
           ref: inputRef
         })}
       />

@@ -83,7 +83,7 @@ const isCapitalLetterPressed = key => /^[A-Z]$/.test(key);
 const isSmallLetterPressed = key => /^[a-z]$/.test(key);
 const isNumberPressed = key => /^[0-9]/.test(key);
 const isSpecialCharacter = key =>
-  /^[!@#$%^&*()_+<>?:"{}[\]';.,\|/\-\\=_\+~`]/.test(key);
+  /^[!@#$%^&*()_+<>?:"{}[\]';.,|/\-\\=_+~`]/.test(key);
 
 const isSpecialCharacterPressed = key => {
   return (

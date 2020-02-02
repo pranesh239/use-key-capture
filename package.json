@@ -9,7 +9,12 @@
     "postpublish": "git push --tags",
     "test": "jest --config=jest.config.js",
     "test:watch": "jest --config=jest.config.js --watch",
-    "test:coverage": "jest --config=jest.config.js --coverage && open coverage/Icov-report/index.html"
+    "test:coverage": "jest --config=jest.config.js --coverage && open coverage/Icov-report/index.html",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build",
+    "docz:serve": "docz build && docz serve",
+    "predeploy": "yarn test && yarn docz:build",
+    "deploy": "gh-pages -d .docz/dist/"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
@@ -20,6 +25,8 @@
     "@testing-library/jest-dom": "^5.0.0",
     "@testing-library/react": "^9.4.0",
     "@testing-library/react-hooks": "^3.2.1",
+    "docz": "^2.2.0",
+    "gh-pages": "^2.2.0",
     "husky": "^4.2.1",
     "jest": "^24.9.0",
     "react-test-renderer": "^16.12.0",
@@ -37,7 +44,7 @@
   },
   "browserslist": "> 0.25%, not dead",
   "author": "Pranesh T G",
-  "homepage": "https://github.com/pranesh239/use-key-capture#readme",
+  "homepage": "http://pranesh239.github.io/use-key-capture",
   "bugs": {
     "url": "https://github.com/pranesh239/use-key-capture/issues"
   }

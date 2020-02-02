@@ -9,14 +9,14 @@ describe('useKeyCapture', () => {
       const { result } = setUpHook();
       expect(result.current.keyData).toBeTruthy();
       expect(result.current.resetKeyData).toBeTruthy();
-      expect(result.current.targetPropsGetter).toBeTruthy();
+      expect(result.current.getTargetProps).toBeTruthy();
     });
   });
 
   describe('prop getters', () => {
     it('are returned as functions', () => {
       const { result } = setUpHook();
-      expect(result.current.targetPropsGetter).toBeInstanceOf(Function);
+      expect(result.current.getTargetProps).toBeInstanceOf(Function);
       expect(result.current.resetKeyData).toBeInstanceOf(Function);
     });
   });

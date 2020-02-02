@@ -1,0 +1,91 @@
+---
+name: Demo
+route: /demo
+order: 2
+---
+
+import { Playground } from 'docz';
+import GlobalComponent from '../Components/GlobalEventComponent.js';
+import TargetEventComponent from '../Components/TargetEventComponent.js';
+
+## Target Listener
+
+Listen only for the key-press event for a particular target.
+
+It is provided by `getTargetProps` props getter. If `getTargetProps` props getter is not provided, then it will listen for key-press event globally.
+
+```jsx
+<input {...getTargetProps()} />
+```
+
+<TargetEventComponent />
+
+```jsx
+import React from 'react';
+import useKey from 'use-key-capture';
+import './styles.css';
+
+const displayKeys = ['Q', 'W', 'E', 'R', 'T', 'Y', 'Backspace'];
+
+const TargetEventComponent = () => {
+  const { keyData, getTargetProps } = useKey();
+
+  const getIsActive = key => (keyData.key === key ? 'active' : '');
+
+  return (
+    <div className="container-target">
+      <div className="message">
+        Type QWERTY in the input element below. If the focus outside the target,
+        we won't see any change.
+      </div>
+      <input {...getTargetProps()} />
+      <div className="container">
+        {displayKeys.map(key => {
+          return <div className={`box ${getIsActive(key)}`}>{key}</div>;
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default TargetEventComponent;
+```
+
+## Global Listener
+
+If no target is specified, it will listen for global event.
+
+<GlobalComponent />
+
+```jsx
+import React from 'react';
+import useKey from 'use-key-capture';
+import './styles.css';
+
+const displayKeys = ['Enter', 'Escape', 'Tab', 'ArrowUp'];
+
+const GlobalComponent = () => {
+  const { keyData } = useKey();
+
+  const getIsActive = key => (keyData.key === key ? 'active' : '');
+
+  const getCombinedActiveClass = () =>
+    keyData.key === 'A' && keyData.isWithShift ? 'active' : '';
+
+  return (
+    <>
+      <div className="message">
+        Press below mentioned keys to see the hook in action
+      </div>
+      <div className="container">
+        {displayKeys.map(key => {
+          return <div className={`box ${getIsActive(key)}`}>{key}</div>;
+        })}
+        <div className={`box ${getCombinedActiveClass()}`}>Shift + A</div>
+      </div>
+    </>
+  );
+};
+
+export default GlobalComponent;
+```
