@@ -26,6 +26,14 @@ export default function keyReducer(state, action) {
       };
     }
 
+    case useKeyActionTypes.BACKSPACE: {
+      return {
+        ...initialState,
+        isBackspace: true,
+        ...action.payload
+      };
+    }
+
     case useKeyActionTypes.SHIFT: {
       return {
         ...initialState,

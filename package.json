@@ -1,35 +1,44 @@
 {
   "name": "use-key-capture",
-  "version": "0.0.1-beta.10",
+  "version": "0.0.1-beta.12",
   "main": "dist",
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist && babel src --ignore */__tests__ --out-dir dist",
-    "prepare": "yarn build",
+    "prepare": "yarn test && yarn build",
     "postpublish": "git push --tags",
-    "test": "jest --config=jest.config.js"
+    "test": "jest --config=jest.config.js",
+    "test:watch": "jest --config=jest.config.js --watch",
+    "test:coverage": "jest --config=jest.config.js --coverage && open coverage/Icov-report/index.html"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
+    "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
     "@testing-library/jest-dom": "^5.0.0",
     "@testing-library/react": "^9.4.0",
+    "@testing-library/react-hooks": "^3.2.1",
+    "husky": "^4.2.1",
     "jest": "^24.9.0",
+    "react-test-renderer": "^16.12.0",
     "rimraf": "^3.0.0"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test"
+    }
+  },
   "peerDependencies": {
-    "react": "^16.12.0"
+    "@babel/runtime": "^7.8.4",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   },
   "browserslist": "> 0.25%, not dead",
   "author": "Pranesh T G",
   "homepage": "https://github.com/pranesh239/use-key-capture#readme",
   "bugs": {
     "url": "https://github.com/pranesh239/use-key-capture/issues"
-  },
-  "dependencies": {
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
   }
 }

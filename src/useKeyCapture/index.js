@@ -18,8 +18,6 @@ function useKeys() {
 
   const targetItemRef = useRef(null);
 
-  console.log('targetItemRef', targetItemRef);
-
   const dispatchWithActionDetails = event => {
     dispatch(getAction(event));
   };
@@ -27,7 +25,7 @@ function useKeys() {
   /**
    * It resets all state values to initial values
    */
-  const resetKeyDetails = () => {
+  const resetKeyData = () => {
     dispatch({
       type: useKeyActionTypes.RESET_CAPTURES
     });
@@ -58,7 +56,7 @@ function useKeys() {
     };
   };
 
-  return { keyData, resetKeyDetails, targetPropsGetter };
+  return { keyData, resetKeyData, targetPropsGetter };
 }
 
 export default useKeys;
