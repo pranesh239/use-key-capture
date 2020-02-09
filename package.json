@@ -1,6 +1,6 @@
 {
   "name": "use-key-capture",
-  "version": "0.0.1-beta.12",
+  "version": "1.0.0",
   "main": "dist",
   "license": "MIT",
   "scripts": {
@@ -16,6 +16,13 @@
     "predeploy": "yarn test && yarn docz:build",
     "deploy": "gh-pages -d .docz/dist"
   },
+  "keywords": [
+    "keyboard event",
+    "key press",
+    "enhanced key press event",
+    "key press listener",
+    "react"
+  ],
   "devDependencies": {
     "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",

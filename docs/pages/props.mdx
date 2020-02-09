@@ -1,0 +1,46 @@
+---
+name: Props
+route: /props
+order: 2
+---
+
+## Props
+
+### keyData
+
+It will be the most used props from `useKeyCapture`. It gives the key/key varient/key combinations pressed.
+
+| Property           | Type    |
+| ------------------ | ------- |
+| key                | String  |
+| isEnter            | Boolean |
+| isBackspace        | Boolean |
+| isEscape           | Boolean |
+| isCapsLock         | Boolean |
+| isTab              | Boolean |
+| isSpace            | Boolean |
+| isArrow            | Boolean |
+| isArrowRight       | Boolean |
+| isArrowLeft        | Boolean |
+| isArrowUp          | Boolean |
+| isArrowDown        | Boolean |
+| isWithShift        | Boolean |
+| isWithCtrl         | Boolean |
+| isWithMeta         | Boolean |
+| isWithAlt          | Boolean |
+| isCaps             | Boolean |
+| isSmall            | Boolean |
+| isNumber           | Boolean |
+| isSpecialCharacter | Boolean |
+
+### getTargetProps
+
+`type: function({})`
+
+A prop getter to be given if a target (input, textarea) have to be listened for key-press.
+
+### resetKeyData
+
+`type: function({})`
+
+It will reset all the values in `keyData` props to the initial values.
