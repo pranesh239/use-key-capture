@@ -1,3 +1,7 @@
 src
 node_modules
 __test__
+.docz
+coverage
+docs
+public
