@@ -7,7 +7,14 @@
     "repository": null,
     "native": false,
     "themeConfig": {},
-    "separator": "-"
+    "separator": "-",
+    "ignore": [
+      "README.md"
+    ],
+    "public": "./public",
+    "htmlContext": {
+      "favicon": "/public/public/images/favicon.png"
+    }
   },
   "entries": [
     {
@@ -73,6 +80,42 @@
             "slug": "global-listener",
             "depth": 2,
             "value": "Global Listener"
+          }
+        ]
+      }
+    },
+    {
+      "key": "docs/pages/props.mdx",
+      "value": {
+        "name": "Props",
+        "route": "/props",
+        "order": 2,
+        "id": "b5cb4d959720d31e411c9b125e451a6a",
+        "filepath": "docs/pages/props.mdx",
+        "fullpath": "/Users/pranesh.g/Documents/opensource/use-key-capture-2/docs/pages/props.mdx",
+        "link": "",
+        "slug": "docs-pages-props",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          },
+          {
+            "slug": "keydata",
+            "depth": 3,
+            "value": "keyData"
+          },
+          {
+            "slug": "gettargetprops",
+            "depth": 3,
+            "value": "getTargetProps"
+          },
+          {
+            "slug": "resetkeydata",
+            "depth": 3,
+            "value": "resetKeyData"
           }
         ]
       }

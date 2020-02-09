@@ -1,6 +1,6 @@
 {
   "name": "use-key-capture",
-  "version": "0.0.1-beta.12",
+  "version": "1.0.0",
   "main": "dist",
   "license": "MIT",
   "scripts": {
