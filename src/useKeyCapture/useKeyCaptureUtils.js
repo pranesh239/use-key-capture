@@ -107,7 +107,15 @@ const getModifierPayload = eventDetails => {
 
   return modifierPayloadObj;
 };
-
+//
+const getResetKeyPayload = eventDetails =>{
+  let ResetPayloadObj = {};
+  if(eventDetails[key]){
+    ResetPayloadObj[`is${useKeyActionTypes.ESCAPE_KEY}`] = true;
+  }
+  return ResetPayloadObj;
+}
+//
 /**
  * Returns the action type for the key pressed
  * @param {KeyboardEvent} eventDetails keyboard event object
@@ -154,7 +162,14 @@ const getAction = eventDetails => {
   if (!type) {
     type = 'SOME_OTHER_KEY';
   }
-
+  //
+  if(type==="ESCAPE_KEY"||type=== "RESET_CAPTURES"){
+    return{
+      type,
+      payload: {...getResetKeyPayload(eventDetails), key}
+    }
+  }
+  //
   return {
     type,
     payload: { ...getModifierPayload(eventDetails), key }

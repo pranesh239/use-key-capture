@@ -36,6 +36,14 @@ function useKeys() {
     // setTimeout(() => {
     //   document.dispatchEvent(new KeyboardEvent('keydown'), { key: 'Escape' });
     // }, 2000);
+    //
+    let checkResetKeyPressed = dispatchWithActionDetails()
+    if(checkResetKeyPressed.key){
+      setTimeout(()=>{
+        document.dispatchEvent(new KeyboardEvent('keydown'));
+      },2000);
+    }
+    //
   }, [keyData]);
 
   useEffect(() => {
@@ -56,7 +64,7 @@ function useKeys() {
     };
   };
 
-  return { keyData, resetKeyData, getTargetProps };
+  return { keyData, getTargetProps, resetKeyData };
 }
 
 export default useKeys;
