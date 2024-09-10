@@ -10,7 +10,7 @@ use-key-capture ⌨️
 <p align="center" style="font-size: 1.2rem;">A custom hook to ease the key-press listeners of a target/global.</p>
 
 > Check the
-> [demo](https://use-key-capture.netlify.com/demo)
+> [demo](https://use-key-capture.netlify.app/)
 > here
 
 <hr />
