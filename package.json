@@ -1,13 +1,11 @@
 {
   "name": "use-key-capture",
-  "version": "1.0.1-beta.1",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "prepare": "yarn test && yarn build",
-    "postpublish": "git push --tags",
     "test": "jest --config=jest.config.js",
     "test:watch": "jest --config=jest.config.js --watch",
     "test:coverage": "jest --config=jest.config.js --coverage && open coverage/Icov-report/index.html",
@@ -36,11 +34,6 @@
     "jest": "^24.9.0",
     "react-test-renderer": "^16.12.0",
     "rimraf": "^3.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn test"
-    }
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17 || ^18 || ^19",

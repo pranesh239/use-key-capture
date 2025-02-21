@@ -1,2 +1,2 @@
-export { default } from './useKeyCapture';
-export type { KeyData, Action, TargetProps, UseKeysResult } from './useKeyCapture/types';
+export {useKeys} from './useKeyCapture';
+export type { KeyData, TargetProps, UseKeysResult } from './useKeyCapture/types';

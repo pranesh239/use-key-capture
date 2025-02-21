@@ -3,6 +3,9 @@ import { KeyActionTypes } from "./useKeyCaptureUtils";
 
 export interface KeyData {
   key: string;
+  /**
+   *  @deprecated Use the "key" property instead
+   * */
   keyCode: number;
   isTrusted: boolean;
   type: string;
@@ -10,6 +13,8 @@ export interface KeyData {
   ctrlKey: boolean;
   metaKey: boolean;
   shiftKey: boolean;
+  spaceKey: boolean;
+  isSpecialCharacter: boolean;
 }
 
 export interface Action {

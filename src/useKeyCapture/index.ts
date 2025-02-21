@@ -54,4 +54,4 @@ function useKeys(): UseKeysResult {
   };
 }
 
-export default useKeys;
+export  {useKeys};

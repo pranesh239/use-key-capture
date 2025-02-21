@@ -1,4 +1,4 @@
-import { RefObject, MutableRefObject } from 'react';
+import {  MutableRefObject } from 'react';
 import type { KeyData, Action } from './types';
 
 export enum KeyActionTypes {
@@ -14,12 +14,21 @@ export const initialState: KeyData = {
   altKey: false,
   ctrlKey: false,
   metaKey: false,
-  shiftKey: false
+  shiftKey: false,
+  spaceKey: false,
+  isSpecialCharacter: false
 };
 
 export const targetItemPropsDefaultValue = {
   ref: null,
-  type: ''
+  type: 'text'
+};
+
+const isSpecialCharacter = (key: string): boolean => {
+  if (typeof key !== 'string' || key.length !== 1) {
+    return false;
+  }
+  return /^[!@#$%^&*()_+<>?:"{}[\]';.,|/\-\\=_+~`]$/.test(key);
 };
 
 export const getAction = (event: KeyboardEvent): Action => {
@@ -28,13 +37,16 @@ export const getAction = (event: KeyboardEvent): Action => {
     type: KeyActionTypes.UPDATE_CAPTURES,
     payload: {
       key,
+      // Soon keyCode will be removed
       keyCode,
       isTrusted,
       type,
       altKey,
       ctrlKey,
       metaKey,
-      shiftKey
+      shiftKey,
+      spaceKey: key === ' ',
+      isSpecialCharacter: isSpecialCharacter(key),
     }
   };
 };
