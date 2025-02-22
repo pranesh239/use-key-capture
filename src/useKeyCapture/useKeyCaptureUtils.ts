@@ -1,35 +1,19 @@
-import {  MutableRefObject } from 'react';
-import type { KeyData, Action } from './types';
+import { MutableRefObject } from "react";
+import type { KeyData, Action, TargetProps } from "./types";
+import { KeyActionTypes, initialState } from "./constants";
 
-export enum KeyActionTypes {
-  UPDATE_CAPTURES = 'UPDATE_CAPTURES',
-  RESET_CAPTURES = 'RESET_CAPTURES'
-};
-
-export const initialState: KeyData = {
-  key: '',
-  keyCode: 0,
-  isTrusted: false,
-  type: '',
-  altKey: false,
-  ctrlKey: false,
-  metaKey: false,
-  shiftKey: false,
-  spaceKey: false,
-  isSpecialCharacter: false
-};
-
-export const targetItemPropsDefaultValue = {
-  ref: null,
-  type: 'text'
+export const targetItemPropsDefaultValue: TargetProps = {
+  type: "text"
 };
 
 const isSpecialCharacter = (key: string): boolean => {
-  if (typeof key !== 'string' || key.length !== 1) {
+  if (typeof key !== "string" || key.length !== 1) {
     return false;
   }
   return /^[!@#$%^&*()_+<>?:"{}[\]';.,|/\-\\=_+~`]$/.test(key);
 };
+
+const isNumberPressed = (key: string) => /^[0-9]/.test(key);
 
 export const getAction = (event: KeyboardEvent): Action => {
   const { key, keyCode, isTrusted, type, altKey, ctrlKey, metaKey, shiftKey } = event;
@@ -45,8 +29,9 @@ export const getAction = (event: KeyboardEvent): Action => {
       ctrlKey,
       metaKey,
       shiftKey,
-      spaceKey: key === ' ',
+      spaceKey: key === " ",
       isSpecialCharacter: isSpecialCharacter(key),
+      isNumber: isNumberPressed(key)
     }
   };
 };
@@ -59,7 +44,7 @@ export const handleRefAssignment = (
   targetItemRef: MutableRefObject<HTMLElement | null>
 ): void => {
   if (ref) {
-    if (typeof ref === 'function') {
+    if (typeof ref === "function") {
       (ref as RefCallback<HTMLElement>)(node);
     } else {
       ref.current = node;

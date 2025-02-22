@@ -1,21 +1,17 @@
-import { useEffect, useReducer, useRef} from 'react';
-import reducer from './useKeyCaptureReducer';
-import type {  TargetProps, UseKeysResult } from './types';
+import { useEffect, useReducer, useRef } from "react";
+import reducer from "./useKeyCaptureReducer";
+import type { TargetProps, UseKeysResult } from "./types";
 
+import { initialState, KeyActionTypes } from "./constants";
 import {
-  initialState,
   getAction,
-  KeyActionTypes,
   useEnhancedReducer,
   targetItemPropsDefaultValue,
-  handleRefAssignment,
-} from './useKeyCaptureUtils';
+  handleRefAssignment
+} from "./useKeyCaptureUtils";
 
 function useKeys(): UseKeysResult {
-  const [keyData, dispatch] = useReducer<typeof reducer>(
-    useEnhancedReducer(reducer),
-    initialState
-  );
+  const [keyData, dispatch] = useReducer<typeof reducer>(useEnhancedReducer(reducer), initialState);
 
   const targetItemRef = useRef<HTMLElement | null>(null);
 
@@ -33,10 +29,10 @@ function useKeys(): UseKeysResult {
 
   useEffect(() => {
     const listenerItem = targetItemRef.current || document;
-    listenerItem.addEventListener('keydown', dispatchWithActionDetails);
+    listenerItem.addEventListener("keydown", dispatchWithActionDetails);
 
     return () => {
-      listenerItem.removeEventListener('keydown', dispatchWithActionDetails);
+      listenerItem.removeEventListener("keydown", dispatchWithActionDetails);
     };
   }, []);
 
@@ -54,4 +50,4 @@ function useKeys(): UseKeysResult {
   };
 }
 
-export  {useKeys};
+export { useKeys };

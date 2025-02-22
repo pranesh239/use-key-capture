@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import { KeyActionTypes } from "./useKeyCaptureUtils";
+import { KeyActionTypes } from "./constants";
 
 export interface KeyData {
   key: string;
@@ -15,26 +15,25 @@ export interface KeyData {
   shiftKey: boolean;
   spaceKey: boolean;
   isSpecialCharacter: boolean;
+  isNumber: boolean;
 }
 
-export interface Action {
+export type Action = {
   type: KeyActionTypes;
-  payload?: any;
-}
+  payload?: KeyData;
+};
 
 export type RefCallback<T> = (instance: T | null) => void;
 
 export interface TargetProps {
-  ref?: RefObject<HTMLElement> | RefCallback<HTMLElement>;
-  type?: string;
+  ref?: RefObject<HTMLElement> | RefCallback<HTMLElement> | undefined;
+  type?: React.HTMLInputTypeAttribute;
 }
 
 export interface UseKeysResult {
   keyData: KeyData;
   resetKeyData: () => void;
-  getTargetProps: (
-    props?: TargetProps
-  ) => {
+  getTargetProps: (props?: TargetProps) => {
     ref: (node: HTMLElement | null) => void;
     type?: string;
   };
