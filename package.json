@@ -44,10 +44,6 @@
     "rimraf": "^3.0.0",
     "typescript": "^5"
   },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17 || ^18 || ^19",
-    "react-dom": "^16.8.0 || ^17 || ^18 || ^19"
-  },
   "browserslist": "> 0.25%, not dead",
   "author": "Pranesh T G",
   "homepage": "http://pranesh239.github.io/use-key-capture",
